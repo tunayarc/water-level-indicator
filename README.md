@@ -2,7 +2,7 @@
 
 A six-level, conductive-probe water level indicator built entirely from discrete analog components. Five BJT switching stages light steady LEDs as the water rises; at the sixth and highest level an astable multivibrator takes over and the alarm LED blinks at about 1 Hz. The design was verified in LTspice, built on a breadboard and measured on the bench.
 
-> **Course:** EEE 202 Circuit Theory II, Middle East Technical University Northern Cyprus Campus (Spring 2025)<br>
+> **Course:** EEE 202 Circuit Theory II, Middle East Technical University Northern Cyprus Campus (Spring 2026)<br>
 > **Team:** Tunay Arıcı, Mehmet Yamaç Güngör, Arda Ardıç, Yiğitalp Dellal<br>
 > **Instructor:** Hussam Alraie
 
@@ -48,7 +48,7 @@ A common supply probe sits at the bottom of the tank, tied to the protected supp
 Because the pull-down and the capacitor form a 1 s time constant, a level stays lit while the surface settles instead of flickering on every wave. This network is better understood as a switching-time controller than as a filter: the base-emitter junction clamps the capacitor voltage, so the stage behaves as a large-signal timing element.
 
 <p align="center">
-  <img src="media/schematic.png" alt="Complete Version 3 schematic" width="900">
+  <img src="media/schematics/v3-implemented.png" alt="Complete Version 3 schematic" width="900">
 </p>
 
 ## Design evolution
@@ -62,6 +62,27 @@ The circuit was developed in deliberate steps, each adding one capability.
 | 3 | Input stabilization and reverse-polarity protection | **Built and tested** |
 | 4 | MOSFET sensing stages to cut the current through the water | Proposed |
 | 5 | AC probe excitation to suppress electrolysis | Proposed |
+
+<details>
+<summary><b>Show the schematic of each version</b></summary>
+
+**Version 1:** five identical BJT channels, each a probe, a base resistor and a low-side switch for one LED.
+
+<img src="media/schematics/v1-five-level-bjt.png" alt="Version 1 schematic" width="900">
+
+**Version 2:** a sixth probe enables an astable multivibrator that blinks the top LED.
+
+<img src="media/schematics/v2-sixth-level-alarm.png" alt="Version 2 schematic" width="900">
+
+**Version 3:** a 1 MΩ pull-down and a 1 µF capacitor on every base, and a 1N5819 diode in series with the supply. This is the built circuit.
+
+<img src="media/schematics/v3-implemented.png" alt="Version 3 schematic" width="900">
+
+**Version 4:** BS170 MOSFETs replace the sensing BJTs, with 1N4742A Zener diodes clamping each gate. The gates draw almost no current, so far less current flows through the water.
+
+<img src="media/schematics/v4-mosfet-proposed.png" alt="Version 4 schematic" width="900">
+
+</details>
 
 ## Component values
 
@@ -85,16 +106,52 @@ Every value is derived in the appendices of the report, including a forced-beta 
 In LTspice, water contact is modelled by voltage-controlled switches in series with a 100 kΩ water path. The switches close every 30 s, imitating water reaching P1 through P6 in order.
 
 <p align="center">
-  <img src="media/sim-led-currents.png" alt="Simulated LED currents" width="900">
+  <img src="media/simulation/01-probe-triggers.png" alt="Switch control signals" width="900">
 </p>
 
-The five level LEDs turn on one after another and stay steady near 4.8 mA; once P6 is reached the alarm LED current becomes periodic.
+**Level indication.** The five level LEDs turn on one after another and stay steady near 4.8 mA; once P6 is reached the alarm LED current becomes periodic.
 
 <p align="center">
-  <img src="media/sim-alarm.png" alt="Astable multivibrator collector waveforms" width="900">
+  <img src="media/simulation/05-led-currents.png" alt="Simulated LED currents" width="900">
 </p>
 
-The two collector waveforms of the astable multivibrator alternate, confirming that the blinking comes from the circuit's own oscillation.
+**Alarm.** The two collector waveforms of the astable multivibrator alternate, and the alarm LED switches on and off at about 1 Hz. The blinking comes from the circuit's own oscillation.
+
+<p align="center">
+  <img src="media/simulation/07-astable-collectors.png" alt="Astable multivibrator collector waveforms" width="900">
+  <img src="media/simulation/06-alarm-led-current.png" alt="Alarm LED current" width="900">
+</p>
+
+**Supply.** Each new level draws about 5 mA more, so the supply current climbs in steps up to roughly 40 mA, and the total power stays below 0.5 W.
+
+<p align="center">
+  <img src="media/simulation/09-supply-current.png" alt="Supply current" width="900">
+</p>
+
+<details>
+<summary><b>More simulation results</b></summary>
+
+**Input triggering and RC delay.** Zoomed in at the first probe: the base voltage follows the switch only after the debounce capacitor has charged.
+
+<img src="media/simulation/02-rc-delay-zoom.png" alt="RC delay at the first trigger" width="900">
+
+**Base voltages.** Each base rises to about 0.69 V when its probe is reached, confirming forward bias of the base-emitter junction.
+
+<img src="media/simulation/03-base-voltages.png" alt="BJT base voltages" width="900">
+
+**Collector voltages.** Each collector falls from about 11 V to near 0 V as its transistor saturates.
+
+<img src="media/simulation/04-collector-voltages.png" alt="BJT collector voltages" width="900">
+
+**Protected rail under load.** The rail after the Schottky diode sags by only about 0.25 V at full load.
+
+<img src="media/simulation/08-supply-voltage.png" alt="Supply and protected rail voltage" width="900">
+
+**Supply power.**
+
+<img src="media/simulation/10-supply-power.png" alt="Supply power" width="900">
+
+</details>
 
 ## Bench measurements
 
@@ -129,5 +186,8 @@ water-level-indicator/
 ├── report/
 │   ├── water-level-indicator-report.pdf
 │   └── water-level-indicator-presentation.pdf
-└── media/       figures used in this page
+└── media/
+    ├── breadboard.jpg
+    ├── schematics/   LTspice schematics of Versions 1 to 4
+    └── simulation/   LTspice waveform plots
 ```
