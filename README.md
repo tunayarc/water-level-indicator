@@ -22,6 +22,7 @@ A six-level, conductive-probe water level indicator built entirely from discrete
 - [Bench measurements](#bench-measurements)
 - [Limitations and next steps](#limitations-and-next-steps)
 - [Repository layout](#repository-layout)
+- [License](#license)
 
 ## Requirements
 
@@ -233,6 +234,7 @@ The main weakness of the design is that it senses with DC current through the wa
 ```
 water-level-indicator/
 ├── README.md
+├── LICENSE
 ├── report/
 │   ├── water-level-indicator-report.pdf
 │   └── water-level-indicator-presentation.pdf
@@ -242,3 +244,7 @@ water-level-indicator/
     ├── schematics/   LTspice schematics of Versions 1 to 4
     └── simulation/   LTspice waveform plots
 ```
+
+## License
+
+This work is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). You may share and adapt it for any purpose, provided you give appropriate credit to the authors: Tunay Arıcı, Mehmet Yamaç Güngör, Arda Ardıç and Yiğitalp Dellal.
