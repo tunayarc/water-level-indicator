@@ -190,6 +190,19 @@ In LTspice, water contact is modelled by voltage-controlled switches in series w
 
 </details>
 
+### Running the simulations
+
+The LTspice source for every version is in [`simulation/`](simulation/). Open any `.asc` file in LTspice XVII or later and press Run; the transient analysis (190 s) is already set up.
+
+| File | Circuit |
+|---|---|
+| `v1-five-level-bjt.asc` | Version 1 |
+| `v2-sixth-level-alarm.asc` | Version 2 |
+| `v3-implemented.asc` | Version 3, the built circuit |
+| `v4-mosfet-proposed.asc` | Version 4, with a sweep of the water resistance over 10 kΩ, 50 kΩ, 100 kΩ, 500 kΩ, 1 MΩ, 2 MΩ and 5 MΩ |
+
+The BC547B, 1N5819 and BS170 models come from LTspice's standard library or are defined inside the schematics. Version 4 also needs `zener.lib` for the 1N4742A Zener diodes; keep it in the same folder as the `.asc` file.
+
 ## Bench measurements
 
 | Quantity | Expected | Measured |
@@ -223,6 +236,7 @@ water-level-indicator/
 ├── report/
 │   ├── water-level-indicator-report.pdf
 │   └── water-level-indicator-presentation.pdf
+├── simulation/   LTspice .asc files for Versions 1 to 4, and zener.lib
 └── media/
     ├── breadboard.jpg
     ├── schematics/   LTspice schematics of Versions 1 to 4
