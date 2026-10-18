@@ -231,19 +231,19 @@ The main weakness of the design is that it senses with DC current through the wa
 
 ## Repository layout
 
-```
+text
 water-level-indicator/
+├── .gitattributes
 ├── README.md
 ├── LICENSE
 ├── report/
 │   ├── water-level-indicator-report.pdf
 │   └── water-level-indicator-presentation.pdf
-├── simulation/   LTspice .asc files for Versions 1 to 4, and zener.lib
+├── simulation/    LTspice .asc files for Versions 1 to 4, and Zener.lib
 └── media/
     ├── breadboard.jpg
-    ├── schematics/   LTspice schematics of Versions 1 to 4
-    └── simulation/   LTspice waveform plots
-```
+    ├── schematics/    LTspice schematics of Versions 1 to 4
+    └── simulation/    LTspice waveform plots
 
 ## License
 
