@@ -231,7 +231,7 @@ The main weakness of the design is that it senses with DC current through the wa
 
 ## Repository layout
 
-text
+```text
 water-level-indicator/
 ├── .gitattributes
 ├── README.md
@@ -244,6 +244,7 @@ water-level-indicator/
     ├── breadboard.jpg
     ├── schematics/    LTspice schematics of Versions 1 to 4
     └── simulation/    LTspice waveform plots
+```
 
 ## License
 
