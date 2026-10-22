@@ -38,6 +38,12 @@ A six-level, conductive-probe water level indicator built entirely from discrete
 
 A common supply probe sits at the bottom of the tank, tied to the protected supply rail. When water reaches a level probe, the water itself closes the path into the base of that level's transistor.
 
+The animation below follows one fill-and-drain cycle of the Version 3 circuit. As the water reaches each probe, base current flows, the transistor switches on and collector current lights its LED; at P6 the astable multivibrator starts and the alarm LED blinks.
+
+<p align="center">
+  <img src="media/operation-circuit.svg" alt="Animated circuit: as the water reaches each probe, base current flows, the transistor switches on and its LED lights; at P6 the 1 Hz astable alarm blinks" width="900">
+</p>
+
 | Stage | What it does |
 |---|---|
 | Reverse-polarity protection | A series 1N5819 Schottky diode blocks a reversed supply while dropping only about 0.25 V |
@@ -242,6 +248,7 @@ water-level-indicator/
 ├── simulation/    LTspice .asc files for Versions 1 to 4, and Zener.lib
 └── media/
     ├── breadboard.jpg
+    ├── operation-circuit.svg    animated circuit operation
     ├── schematics/    LTspice schematics of Versions 1 to 4
     └── simulation/    LTspice waveform plots
 ```
